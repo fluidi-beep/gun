@@ -208,21 +208,7 @@ export interface IGunChainReference<DataType = Record<string, any>, ReferenceKey
      * @param cb Callback that is to be called upon authentication of the user.
      * @param opt Option Object containing options for authentiaction. (In gun options are added at end of syntax. opt is rarely used, hence is added at the end.)
      */
-    auth(alias: string, pass: string, cb?: (ack: {
-        ack: 2;
-        get: string;
-        on: (...args: [unknown, unknown, unknown]) => unknown;
-        put: {
-            alias: string;
-            auth: any;
-            epub: string;
-            pub: string;
-        };
-        sea: IGunCryptoKeyPair;
-        soul: string;
-    } | {
-        err: string;
-    }) => void, opt?: {}): IGunChainReference;
+    auth(alias: string, pass: string, cb?: (ack: AuthAck) => void, opt?: {}): IGunChainReference;
     /**
      * Returns the key pair in the form of an object as below.
      */
@@ -254,4 +240,18 @@ export interface IGunChainReference<DataType = Record<string, any>, ReferenceKey
      * @param publicKey If you know a users publicKey you can get their user graph and see any unencrypted data they may have stored there.
      */
     user(publicKey?: string): IGunChainReference;
+}
+
+interface AuthAck {
+    ack: 2;
+    get: string;
+    on: (...args: [unknown, unknown, unknown]) => unknown;
+    put: {
+        alias: string;
+        auth: any;
+        epub: string;
+        pub: string;
+    };
+    sea: IGunCryptoKeyPair;
+    soul: string;
 }
